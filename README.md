@@ -38,3 +38,53 @@ When you finish your development, you can commit them:
 If we create a Github Issue for each User Story we can reference them in the commit message as `#ISSUEID`, for example:
 
 - `git commit -m "#1 - Register a Participant: create the Attendee sol with unit test"`
+
+
+### Env
+
+```
+            Mac OS X──────────────────────────────────────────────────────────────────┐
+            │                                                                         │
+            │        $ cd vagrant                                                     │
+            │        $ vagrant up   <<[ONCE]                                          │
+            │        $ vagrant ssh                                                    │
+            │                                                                         │
+            │        VAGRANT───────────────────────────────────────────────────────┐  │
+            │        │                                                             │  │
+            │        │        $ cd docker                                          │  │
+            │        │        $ docker image list                                  │  │
+            │        │        $ make bash-truffle     <<[ONCE]                     │  │
+            │        │        $ (make join-truffle)                                │  │
+            │        │                                                             │  │
+            │        │        TRUFFLE───────────────────────────────────────────┐  │  │
+            │        │        │      $ testrpc                                  │  │  │
+            │        │        │                                                 │  │  │
+            │        │        │                                                 │  │  │
+            │        │        │                                                 │  │  │
+            │        │        └─────────────────────────────────────────────────┘  │  │
+            │        │        TRUFFLE───────────────────────────────────────────┐  │  │
+            │        │        │      $ truffle test                             │  │  │
+            │        │        │                                                 │  │  │
+            │        │        │      !! WORK / DEVELOP HERE !!                  │  │  │
+            │        │        │                                                 │  │  │
+            │        │        └─────────────────────────────────────────────────┘  │  │
+            │        │                                                             │  │
+            │        │                                                             │  │
+            │        │                                                             │  │
+            │        │        $ make build-geth     <<[ONCE]                       │  │
+            │        │        $ make run-geth                                      │  │
+            │        │                                                             │  │
+            │        │        GETH──────────────────────────────────────────────┐  │  │
+            │        │        │                                                 │  │  │
+            │        │        │      Create a/my node available on the network. │  │  │
+            │        │        │      MINING!!... So consuming CPU and storage:  │  │  │
+            │        │        │                                                 │  │  │
+            │        │        │      $ df -k                                    │  │  │
+            │        │        │                                                 │  │  │
+            │        │        └─────────────────────────────────────────────────┘  │  │
+            │        │        $ make stop-geth                                     │  │
+            │        │                                                             │  │
+            │        └─────────────────────────────────────────────────────────────┘  │
+            │                                                                         │
+            └─────────────────────────────────────────────────────────────────────────┘
+            
