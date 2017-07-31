@@ -13,7 +13,7 @@ As an event organiser, I want to distribute prizes to participants based on a ra
 3. As an admin, I can rerun the raffle draw if winner is not here or if winner is not interested in the prize so that prize can be distributed
 4. As an admin, I can run the raffle draw until there is no more prize to win so that raffle draw game is ended
 
-##Development
+## Development
 
 We decided that everyone work on a branch named as the slack username, so this is some useful `git` commands to start working:
 
@@ -33,4 +33,8 @@ When you finish your development, you can commit them:
 - `git commit -m "the goal of your commit"`
 - `git push origin THE_NAME_OF_YOUR_BRANCH_AKA_SLACK_USERNAME` to upload your commit on github
 
+### Tips
 
+If we create a Github Issue for each User Story we can reference them in the commit message as `#ISSUEID`, for example:
+
+- `git commit -m "#1 - Register a Participant: create the Attendee sol with unit test"`
