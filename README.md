@@ -40,7 +40,11 @@ If we create a Github Issue for each User Story we can reference them in the com
 - `git commit -m "#1 - Register a Participant: create the Attendee sol with unit test"`
 
 
-### Env
+### Environment
+
+With @syllabus we summarized the environment as the following diagram (do not hesitate to complete/correct it):
+
+NB: as I have not write access to the `environment` I put it there.
 
 ```
             Mac OS X──────────────────────────────────────────────────────────────────┐
