@@ -12,3 +12,25 @@ As an event organiser, I want to distribute prizes to participants based on a ra
 2. As an admin, I can validate the winner is present so that I can give him his prize
 3. As an admin, I can rerun the raffle draw if winner is not here or if winner is not interested in the prize so that prize can be distributed
 4. As an admin, I can run the raffle draw until there is no more prize to win so that raffle draw game is ended
+
+##Development
+
+We decided that everyone work on a branch named as the slack username, so this is some useful `git` commands to start working:
+
+Pour créer sa branche sur le repo git:
+
+- `git clone https://github.com/DevchainUserGroup/RaffleDraw`
+- `cd RaffleDraw`
+- `git branch` to list existing branches
+- `git checkout -b SLACK_USERNAME` to create a new branch (`-b`) and switch on it (`checkout`)
+- `git branch` to ensure your are on your branch, the one with a `*` before
+- `echo “build” > .gitignore` create the `.gitignore` file that list all files to not commit, starting with `build`
+- `git config --global user.email "foo@bar.com"` where `foo@bar.com` is the email used on your Github.com account
+
+When you finish your development, you can commit them:
+
+- `git add .` to handle all files (to commit)
+- `git commit -m "the goal of your commit"`
+- `git push origin THE_NAME_OF_YOUR_BRANCH_AKA_SLACK_USERNAME` to upload your commit on github
+
+
