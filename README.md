@@ -17,7 +17,9 @@ As an event organiser, I want to distribute prizes to participants based on a ra
 
 We decided that everyone work on a branch named as the slack username, so this is some useful `git` commands to start working:
 
-Pour créer sa branche sur le repo git:
+### Create your own branch
+
+To create your own branch on the git repository:
 
 - `git clone https://github.com/DevchainUserGroup/RaffleDraw`
 - `cd RaffleDraw`
@@ -32,6 +34,71 @@ When you finish your development, you can commit them:
 - `git add .` to handle all files (to commit)
 - `git commit -m "the goal of your commit"`
 - `git push origin THE_NAME_OF_YOUR_BRANCH_AKA_SLACK_USERNAME` to upload your commit on github
+
+
+### Locally browse the branch of another developer
+
+Assuming you start from your own branch (`*` in front of the current branch):
+
+```
+$ git branch
+
+* jacques
+  master
+```
+
+Ensure that you have no uncommitted changes:
+
+```
+$ git status
+
+On branch jacques
+nothing to commit, working tree clean
+```
+
+List all (remote) branches:
+
+```
+$ git branch -a
+
+* jacques
+  master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/cbroillet
+  remotes/origin/jacques
+  remotes/origin/master
+  remotes/origin/syllabus
+```
+
+Fetch all remotes:
+
+```
+$ git pull --all
+```
+
+And then locally switch to the wanted remote branch:
+
+```
+$ git checkout syllabus
+
+Branch syllabus set up to track remote branch syllabus from origin.
+Switched to a new branch 'syllabus'
+```
+
+Check:
+
+```
+$ git branch
+
+  jacques
+  master
+* syllabus
+```
+
+You are now on the branch of `syllabus`!
+ 
+Enjoy hacking ;)
+ 
 
 ### Tips
 
