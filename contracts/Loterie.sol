@@ -3,6 +3,7 @@ pragma solidity ^0.4.4;
 contract Loterie {
   event Registration(string someone);
   string[] public participants;
+  string public winner;
   function Loterie() {
     // constructor
   }
@@ -27,5 +28,9 @@ contract Loterie {
   }
   function participant(uint index) returns (string) {
     return participants[index];
+  }
+  function drawLoterie() returns (string) {
+    uint index = uint(block.blockhash(block.number - 1)) % participants.length;
+    winner = participants[index];
   }
 }
