@@ -2,16 +2,30 @@ pragma solidity ^0.4.4;
 
 contract Loterie {
   event Registration(string someone);
-  mapping(bytes32 => string) public participants;
+  string[] public participants;
   function Loterie() {
     // constructor
   }
-  function registered(string someone) returns (string) {
-  	return participants[sha3(someone)];
+  function isRegistered(string someone) returns (int) {
+    bytes32 hash = sha3(someone);
+    for (uint i = 0; i < participants.length; i++) {
+      if (hash == sha3(participants[i])) {
+        return int(i);
+      }
+    }
+    return -1;
   }
   function registerParticipant(string someone) {
-  	bytes32 hash = sha3(someone);
-  	participants[hash] = someone;
-  	Registration(someone);
-  } 
+  	int index = isRegistered(someone);
+    if (index == -1) {
+      participants.push(someone);
+      Registration(someone);
+    }
+  }
+  function count() returns (uint) {
+    return participants.length;
+  }
+  function participant(uint index) returns (string) {
+    return participants[index];
+  }
 }
