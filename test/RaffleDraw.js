@@ -60,3 +60,32 @@ contract('RaffleDraw', function(accounts) {
   });
 });
 
+contract('RaffleDraw', function(accounts) {
+  var participant = "cbr";
+  it("should return a random winner", function() {
+    return RaffleDraw.deployed().then(function(instance) {
+      return instance.addParticipant(participant);
+    }).then(function(value){
+      return RaffleDraw.deployed().then(function(instance) {
+        return instance.getRandomWinner();
+      }).then(function(value) {
+        assert.equal(value, participant, "There should be a correct value");
+      });
+    });
+  });
+});
+
+contract('RaffleDraw', function(accounts) {
+  var winner = "cbr";
+  it("should return a winner", function() {
+    return RaffleDraw.deployed().then(function(instance) {
+      return instance.addWinner(winner);
+    }).then(function(value){
+      return RaffleDraw.deployed().then(function(instance) {
+        return instance.getWinner(0);
+      }).then(function(value) {
+        assert.equal(value, winner, "There should be a correct value");
+      });
+    });
+  });
+});
