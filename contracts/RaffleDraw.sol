@@ -4,15 +4,15 @@ import "./Mortal.sol";
 
 contract RaffleDraw is Mortal {
     
-    uint public maxParticipants = 10;
-    string[] public participants;
+    uint private maxParticipants = 10;
+    string[] private participants;
 
-    /* this runs when the contract is executed */
+    uint private maxPrizes = 5;
+    string[] private prizes;
+
     function RaffleDraw() public {
-        
     }
 
-    /* random function */
     function random(uint modulo) constant returns (uint) {
         return uint(block.blockhash(block.number - 1)) % modulo;
     }
@@ -26,5 +26,13 @@ contract RaffleDraw is Mortal {
        return participants[position];
     }
     
+    function addPrize(string prize) public {
+       if (prizes.length >=  maxPrizes) throw;
+       prizes.push(prize);
+    }
+
+    function getPrize(uint position) constant returns (string) {
+       return prizes[position];
+    }
    
 }
