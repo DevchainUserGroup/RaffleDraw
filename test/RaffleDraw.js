@@ -9,3 +9,18 @@ contract('RaffleDraw', function(accounts) {
     });
   });
 });
+
+contract('RaffleDraw', function(accounts) {
+  var participant = "cbr";
+  it("should return a participant", function() {
+    return RaffleDraw.deployed().then(function(instance) {
+      return instance.addParticipant(participant);
+    }).then(function(value){
+      return RaffleDraw.deployed().then(function(instance) {
+        return instance.getParticipant(0);
+      }).then(function(value) {
+        assert.equal(value, participant, "There should be a correct value");
+      });
+    });
+  });
+});

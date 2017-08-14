@@ -6,8 +6,10 @@ import "../contracts/RaffleDraw.sol";
 
 contract TestRaffleDraw {
 
-  function testRandomWithNew() {
+  function testRandomWith1() {
     RaffleDraw raffleDraw = RaffleDraw(DeployedAddresses.RaffleDraw());
-    raffleDraw.random(10);
+    uint expected = 0;
+    Assert.equal(raffleDraw.random(1), expected, "Should be a correct value");
   }
+
 }
