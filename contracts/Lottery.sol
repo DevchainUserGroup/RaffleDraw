@@ -1,6 +1,8 @@
 pragma solidity ^0.4.4;
 
-contract Lottery {
+import "./Mortal.sol";
+
+contract Lottery is Mortal {
 
     function Lottery() {}
 
