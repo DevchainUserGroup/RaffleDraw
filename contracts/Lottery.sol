@@ -2,20 +2,22 @@ pragma solidity ^0.4.4;
 
 contract Lottery {
 
+    function Lottery() {}
+
+    //
+    // Price
+    //
+
     string[] private participants;
 
-  function Lottery() {
-    // constructor
-  }
+    function addParticipant(string name) returns (bool) {
+        participants.push(name);
+        return true;
+    }
 
-  function register(string name) returns (bool) {
-    participants.push(name);
-    return true;
-  }
-
-  function getParticipant(uint index) constant returns (string) {
-    return participants[index];
-  }
+    function getParticipant(uint index) constant returns (string) {
+        return participants[index];
+    }
 
     //
     // Price
