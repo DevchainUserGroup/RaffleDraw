@@ -5,7 +5,7 @@ contract Lottery {
     function Lottery() {}
 
     //
-    // Price
+    // Participant
     //
 
     string[] private participants;
