@@ -17,4 +17,18 @@ contract Lottery {
     return participants[index];
   }
 
+    //
+    // Price
+    //
+
+    string[] private prices;
+
+    function addPrice(string name) returns (bool) {
+        prices.push(name);
+    }
+
+    function getPrice(uint index) constant returns (string) {
+        return prices[index];
+    }
+
 }

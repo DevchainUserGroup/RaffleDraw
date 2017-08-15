@@ -18,13 +18,24 @@ contract('Lottery', function(accounts) {
 
   var aParticipant = "Kent Beck";
 
-  it("should register multiple participant and get the one according to the given position", function(done) {
+  it("should register multiple participants and get the one according to the given position", function(done) {
       Lottery.deployed()
           .then( function(instance) { instance.register("aParticipant"); return instance; })
           .then( function(instance) { instance.register("Another Participant"); return instance; })
           .then( function(instance) { return instance.getParticipant(1); })
           .then( function(value) {
               assert.equal(value, "Another Participant");
+              done();
+          });
+  });
+
+  it("should add multiple prices and get the one according to the given position", function(done) {
+      Lottery.deployed()
+          .then( function(instance) { instance.addPrice("A Price"); return instance; })
+          .then( function(instance) { instance.addPrice("Another Price"); return instance; })
+          .then( function(instance) { return instance.getPrice(1); })
+          .then( function(value) {
+              assert.equal(value, "Another Price");
               done();
           });
   });
