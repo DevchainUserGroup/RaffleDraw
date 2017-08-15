@@ -66,15 +66,16 @@ contract('Lottery', function(accounts) {
     });
 
   it("::getWinner should randomly return one of the added participants", function(done) {
+      var participants = ['P1', 'P2', 'P3', 'P4'];
       var i = 0;
       Lottery.deployed()
-          .then( function(instance) { instance.addParticipant("P" + ++i); return instance; })
-          .then( function(instance) { instance.addParticipant("P" + ++i); return instance; })
-          .then( function(instance) { instance.addParticipant("P" + ++i); return instance; })
-          .then( function(instance) { instance.addParticipant("P" + ++i); return instance; })
+          .then( function(instance) { instance.addParticipant(participants[i++]); return instance; })
+          .then( function(instance) { instance.addParticipant(participants[i++]); return instance; })
+          .then( function(instance) { instance.addParticipant(participants[i++]); return instance; })
+          .then( function(instance) { instance.addParticipant(participants[i++]); return instance; })
           .then( function(instance) { return instance.getWinner(); })
           .then( function(value) {
-              assert.isAtLeast(['P1', 'P2', 'P3', 'P4'].indexOf(value), 0);
+              assert.isAtLeast(participants.indexOf(value), 0);
               done();
           });
   });
