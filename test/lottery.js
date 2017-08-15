@@ -40,29 +40,32 @@ contract('Lottery', function(accounts) {
           });
   });
 
-  it("::randomIntBetweenZeroAnd should return a random int greater or equal to zero and less than given upper bound", function(done) {
-      var upperBound = 4;
-      Lottery.deployed()
-          .then( function(instance) { return instance.randomIntBetweenZeroAnd(upperBound); })
-          .then( function(value)    { assert.isAtMost(value.valueOf(), upperBound); });
-      Lottery.deployed()
-          .then( function(instance) { return instance.randomIntBetweenZeroAnd(upperBound); })
-          .then( function(value)    { assert.isAtMost(value.valueOf(), upperBound); });
-      Lottery.deployed()
-          .then( function(instance) { return instance.randomIntBetweenZeroAnd(upperBound); })
-          .then( function(value)    { assert.isAtMost(value.valueOf(), upperBound); });
-      Lottery.deployed()
-          .then( function(instance) { return instance.randomIntBetweenZeroAnd(upperBound); })
-          .then( function(value)    { assert.isAtMost(value.valueOf(), upperBound); });
-      Lottery.deployed()
-          .then( function(instance) { return instance.randomIntBetweenZeroAnd(upperBound); })
-          .then( function(value) {
-              assert.isAtMost(value.valueOf(), upperBound);
-              done();
-          });
-  });
+});
 
-  it("::getWinner should return a random int greater or equal to zero and less than given upper bound", function(done) {
+contract('Lottery', function(accounts) {
+    it("::randomIntBetweenZeroAnd should return a random int greater or equal to zero and less than given upper bound", function(done) {
+        var upperBound = 4;
+        Lottery.deployed()
+            .then( function(instance) { return instance.randomIntBetweenZeroAnd(upperBound); })
+            .then( function(value)    { assert.isAtMost(value.valueOf(), upperBound); });
+        Lottery.deployed()
+            .then( function(instance) { return instance.randomIntBetweenZeroAnd(upperBound); })
+            .then( function(value)    { assert.isAtMost(value.valueOf(), upperBound); });
+        Lottery.deployed()
+            .then( function(instance) { return instance.randomIntBetweenZeroAnd(upperBound); })
+            .then( function(value)    { assert.isAtMost(value.valueOf(), upperBound); });
+        Lottery.deployed()
+            .then( function(instance) { return instance.randomIntBetweenZeroAnd(upperBound); })
+            .then( function(value)    { assert.isAtMost(value.valueOf(), upperBound); });
+        Lottery.deployed()
+            .then( function(instance) { return instance.randomIntBetweenZeroAnd(upperBound); })
+            .then( function(value) {
+                assert.isAtMost(value.valueOf(), upperBound);
+                done();
+            });
+    });
+
+  it("::getWinner should randomly return one of the added participants", function(done) {
       var i = 0;
       Lottery.deployed()
           .then( function(instance) { instance.addParticipant("P" + ++i); return instance; })

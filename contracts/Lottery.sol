@@ -9,6 +9,7 @@ contract Lottery is Mortal {
     function randomIntBetweenZeroAnd(uint upperBound) constant returns (uint) {
         return uint(block.blockhash(block.number - 1)) % upperBound;
     }
+
     //
     // Participant
     //
@@ -22,6 +23,11 @@ contract Lottery is Mortal {
 
     function getParticipant(uint index) constant returns (string) {
         return participants[index];
+    }
+
+    function getWinner() constant returns (string) {
+        uint i = randomIntBetweenZeroAnd(participants.length);
+        return getParticipant(i);
     }
 
     //
