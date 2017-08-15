@@ -4,7 +4,18 @@ import "./Mortal.sol";
 
 contract Lottery is Mortal {
 
-    function Lottery() {}
+    struct Drawing {
+        string winner;
+        string price;
+        bool accepted;
+    }
+    Drawing[] private drawings;
+
+    uint private nextPriceIndex;
+
+    function Lottery() {
+        nextPriceIndex = 0;
+    }
 
     function randomIntBetweenZeroAnd(uint upperBound) constant returns (uint) {
         return uint(block.blockhash(block.number - 1)) % upperBound;
@@ -28,6 +39,17 @@ contract Lottery is Mortal {
     function getWinner() constant returns (string) {
         uint i = randomIntBetweenZeroAnd(participants.length);
         return getParticipant(i);
+    }
+
+    function winnerAcceptNextPrice(string winner) {
+        string price = prices[nextPriceIndex];
+        nextPriceIndex++;
+        drawings.push(Drawing(winner, price, true));
+    }
+
+    function getDrawingAtIndex(uint index) constant returns (string, string, bool) {
+        Drawing drawing = drawings[index];
+        return (drawing.winner, drawing.price, drawing.accepted);
     }
 
     //

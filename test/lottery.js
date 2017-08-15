@@ -42,8 +42,8 @@ contract('Lottery', function(accounts) {
 
 });
 
-contract('Lottery', function(accounts) {
-    it("::randomIntBetweenZeroAnd should return a random int greater or equal to zero and less than given upper bound", function(done) {
+contract('Lottery::randomIntBetweenZeroAnd', function(accounts) {
+    it("should return a random int greater or equal to zero and less than given upper bound", function(done) {
         var upperBound = 4;
         Lottery.deployed()
             .then( function(instance) { return instance.randomIntBetweenZeroAnd(upperBound); })
@@ -65,7 +65,12 @@ contract('Lottery', function(accounts) {
             });
     });
 
-  it("::getWinner should randomly return one of the added participants", function(done) {
+});
+
+
+contract('Lottery::getWinner', function(accounts) {
+
+  it("should randomly return one of the added participants", function(done) {
       var participants = ['P1', 'P2', 'P3', 'P4'];
       var i = 0;
       Lottery.deployed()
@@ -79,5 +84,42 @@ contract('Lottery', function(accounts) {
               done();
           });
   });
+
+});
+
+contract('Lottery::winnerAcceptNextPrice', function(accounts) {
+
+    it("should set the given winner to the next available price.", function(done) {
+        var attendees = ['A1', 'A2', 'A3', 'A4'];
+        var prices = ['P1', 'P2', 'P3', 'P4'];
+        var a = 0;
+        var p = 0;
+        Lottery.deployed()
+            // PARTICIPANTS
+            .then( function(instance) { instance.addParticipant(attendees[a++]); return instance; })
+            .then( function(instance) { instance.addParticipant(attendees[a++]); return instance; })
+            .then( function(instance) { instance.addParticipant(attendees[a++]); return instance; })
+            .then( function(instance) { instance.addParticipant(attendees[a++]); return instance; })
+            // PRICES
+            .then( function(instance) { instance.addPrice(prices[p++]); return instance; })
+            .then( function(instance) { instance.addPrice(prices[p++]); return instance; })
+            .then( function(instance) { instance.addPrice(prices[p++]); return instance; })
+            .then( function(instance) { instance.addPrice(prices[p++]); return instance; })
+            // WINNER
+            .then( function(instance) { return instance.getWinner(); })
+            .then( function(winner) {
+
+                Lottery.deployed()
+                    .then( function(instance) { instance.winnerAcceptNextPrice(winner); return instance; })
+                    .then( function(instance) { return instance.getDrawingAtIndex(0); })
+                    .then( function(drawing) {
+                        assert.isAtLeast(attendees.indexOf(drawing[0]), 0);
+                        assert.equal(drawing[1], "P1");
+                        assert.equal(drawing[2], true);
+                        done();
+                    });
+
+            });
+    });
 
 });
