@@ -5,7 +5,7 @@ contract('Loterie with 1 participant', function(accounts) {
     var loterie;
     Loterie.deployed().then(function(instance) {
       loterie = instance;
-      return loterie.isRegistered.call('Toto');
+      return loterie.isRegisteredParticipant.call('Toto');
     }).then(function(result) {
       assert.equal(-1,result.valueOf());
       done();
@@ -17,7 +17,7 @@ contract('Loterie with 1 participant', function(accounts) {
     	loterie = instance;
       return instance.registerParticipant('Toto');
     }).then(function(result) {
-	    return loterie.isRegistered.call('Toto');
+	    return loterie.isRegisteredParticipant.call('Toto');
     }).then(function(result) {
       assert.equal(0,result.valueOf());
       return loterie.count.call();
@@ -50,17 +50,16 @@ contract('Loterie with 1 participant', function(accounts) {
    var loterie;
    Loterie.deployed().then(function(instance) {
      loterie = instance;
-     return instance.registerParticipant('Toto');
+     return loterie.registerParticipant('Toto');
    }).then(function(result) {
-//     loterie.Wins({}, {fromBlock: 0, toBlock: 'latest'}).watch(function(error, logs) {
-//	console.log('==================== AND THE WINNER IS ===========   :   ');
-//	console.log(logs.args);
-//});
-     loterie.drawLoterie();
+     return loterie.registerLot('Tahiti en business');
    }).then(function(result) {
-     return loterie.getWinner.call();
+      return loterie.drawLoterie(0);
    }).then(function(result) {
-     assert.equal(0,result);
+     return loterie.getWinner.call(0);
+   }).then(function(winner) {
+     assert.equal('Toto',winner[0]);
+     assert.equal('Tahiti en business',winner[1]);
      done();
    });
  });
@@ -76,6 +75,32 @@ contract('Loterie with 2 participants', function(accounts) {
       return loterie.count.call();
     }).then(function(result) {
       assert.equal(1,result.valueOf());
+      return loterie.registerParticipant('Tata');
+    }).then(function(result) {
+      return loterie.count.call();
+    }).then(function(result) {
+      assert.equal(2,result.valueOf());
+      return loterie.registerParticipant('Titi');
+    }).then(function(result) {
+      return loterie.count.call();
+    }).then(function(result) {
+      assert.equal(3,result.valueOf());
+      return loterie.removeParticipant('Tata');
+    }).then(function(result) {
+	    done();
+    });
+  });
+});
+
+contract('Loterie with some lots', function(accounts) {
+  it("should register lot Vol Tahiti en business", function(done) {
+  	var loterie;
+    Loterie.deployed().then(function(instance) {
+    	loterie = instance;
+      return instance.registerParticipant('Toto');
+    }).then(function(result) {
+      return loterie.registerLot('Tahiti en business');
+    }).then(function(result) {
       return loterie.registerParticipant('Titi');
     }).then(function(result) {
       return loterie.count.call();

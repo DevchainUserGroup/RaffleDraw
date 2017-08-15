@@ -1,27 +1,44 @@
-pragma solidity ^0.4.4;
+pragma solidity ^0.4.11;
 
 contract Loterie {
 
   event Registration(string someone);
-  event Wins(uint index);
+  event Wins(string winner, string lot);
 
   string[] public participants;
-  uint  winner;
+  string[] public lots;
+
+  WonLot[] winners;
+
+  struct WonLot {
+  	string participant;
+  	string lot;
+  	bool cancelled;
+  }
+
   address owner;
 
-	modifier onlyOwner {
- 		require(msg.sender == owner);
- 		_;
-	}
+  modifier onlyOwner {
+  	require(msg.sender == owner);
+ 	_;
+  }
 
   function Loterie() {
     owner = msg.sender;
   }
 
-  function isRegistered(string someone) returns (int) {
-    bytes32 hash = sha3(someone);
-    for (uint i = 0; i < participants.length; i++) {
-      if (hash == sha3(participants[i])) {
+  function isRegisteredParticipant(string someone) returns (int) {
+    return isRegisteredGeneric(someone, participants);
+  }
+
+  function isRegisteredLot(string something) returns (int) {
+    return isRegisteredGeneric(something, lots);
+  }
+
+  function isRegisteredGeneric(string some, string[] array) private returns (int) {
+    bytes32 hash = sha3(some);
+    for (uint i = 0; i < array.length; i++) {
+      if (hash == sha3(array[i])) {
         return int(i);
       }
     }
@@ -29,10 +46,24 @@ contract Loterie {
   }
 
   function registerParticipant(string someone) onlyOwner {
-  	int index = isRegistered(someone);
+  	int index = isRegisteredParticipant(someone);
     if (index == -1) {
       participants.push(someone);
       Registration(someone);
+    }
+  }
+
+  function removeParticipant(string someone) onlyOwner {
+  	uint index = uint(isRegisteredParticipant(someone));
+      delete participants[index];
+      participants[index]=participants[participants.length-1];
+      participants.length --;
+  }
+
+  function registerLot(string something) onlyOwner {
+  	int index = isRegisteredLot(something);
+    if (index == -1) {
+      lots.push(something);
     }
   }
 
@@ -44,19 +75,25 @@ contract Loterie {
     return participants[index];
   }
 
-  function drawLoterie() onlyOwner {
+  function drawLoterie(uint lotIndex) onlyOwner {
+  	string lot = lots[lotIndex];
+  	//delete lots[lotIndex];
+  	//lots[lotIndex] = lots[lots.length-1];
+  	//lots.length--;
     uint index = uint(block.blockhash(block.number - 1)) % participants.length;
-    winner = index;
-    Wins(winner);
-    kill();
+    string winner=participants[index];
+    winners.push(WonLot(winner, lot, false));
+    Wins(winner, lot);
+    //kill();
   }
 
   function kill() onlyOwner {
   	suicide(owner);
   }
 
-  function getWinner() constant returns (uint) {
-  	return winner;
+  function getWinner(uint index) constant returns (string, string) {
+    WonLot wonlot = winners[index];
+  	return (wonlot.participant, wonlot.lot);
   }
 
 }
