@@ -27,6 +27,18 @@ contract Loterie {
     owner = msg.sender;
   }
 
+  function registerParticipant(string someone) onlyOwner {
+    int index = isRegisteredParticipant(someone);
+    if (index == -1) {
+      participants.push(someone);
+      Registration(someone);
+    }
+  }
+
+  function count() constant returns (uint) {
+    return participants.length;
+  }
+
   function isRegisteredParticipant(string someone) returns (int) {
     return isRegisteredGeneric(someone, participants);
   }
@@ -45,14 +57,6 @@ contract Loterie {
     return -1;
   }
 
-  function registerParticipant(string someone) onlyOwner {
-  	int index = isRegisteredParticipant(someone);
-    if (index == -1) {
-      participants.push(someone);
-      Registration(someone);
-    }
-  }
-
   function removeParticipant(string someone) onlyOwner {
   	uint index = uint(isRegisteredParticipant(someone));
       delete participants[index];
@@ -65,10 +69,6 @@ contract Loterie {
     if (index == -1) {
       lots.push(something);
     }
-  }
-
-  function count() returns (uint) {
-    return participants.length;
   }
 
   function participant(uint index) returns (string) {
@@ -89,6 +89,10 @@ contract Loterie {
 
   function kill() onlyOwner {
   	suicide(owner);
+  }
+  
+  function random(uint modulo) constant returns (uint) {
+    return uint(block.blockhash(block.number - 1)) % modulo;
   }
 
   function getWinner(uint index) constant returns (string, string) {

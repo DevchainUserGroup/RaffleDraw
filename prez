@@ -1,0 +1,33 @@
+RaffleDraw: https://github.com/DevchainUserGroup/RaffleDraw
+
+env: truffle
+
+languages:
+ - solidity for contract definition
+ - js for tests
+
+truffle init: code/test examples
+
+solidity: https://solidity.readthedocs.io/en/develop/solidity-in-depth.html
+ -> object oriented
+
+contract: class
+
+methods: calls (constant) and transactions
+
+async: use of promises
+
+structs
+
+string: no "equals" -> write it or use a lib (and link it)
+
+events
+
+modifiers
+
+random function
+
+conclusion:
+ tehno is young: new versions on tools are frequent -> new compiler checks, env install may work one day but not the next day, 
+ with a few hours of experiments and the help of other meetup members, it is possible to create a contract that is usable on the real blockchain
+ next step: graphical interface -> DAPP?

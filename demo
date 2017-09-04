@@ -1,0 +1,52 @@
+// instantiate a new contract
+Loterie.new()
+
+// gt the instance for the contract address (in the logs)
+l=Loterie.at('')
+
+// representation of the contract (methods)
+l
+
+// count participants: 0
+l.count.call()
+
+// register a new participant
+l.registerParticipant('Cyril')
+
+// count participants: 1
+l.count.call()
+
+// watch all events
+l.allEvents(null, (e, res) => console.log(res))
+
+// register a new participant
+l.registerParticipant('Christian')
+// 2
+l.count.call()
+l.registerParticipant('Christian')
+// still 2
+l.count.call()
+
+// other particapants
+l.registerParticipant('Greg')
+l.registerParticipant('Jacques')
+l.registerParticipant('Alec')
+
+// 5
+l.count.call()
+
+// register lots
+l.registerLot('10 bitcoins')
+l.registerLot('20 ethers')
+
+// randomly choose winner for lot 0
+l.drawLoterie(0);
+
+// view stored result
+l.getWinner.call(0)
+
+// randomly choose winner for lot 1
+l.drawLoterie(1);
+
+// randomly choose other winner for lot 1
+l.drawLoterie(1);
